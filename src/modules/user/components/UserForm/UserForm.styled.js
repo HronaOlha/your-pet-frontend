@@ -25,6 +25,8 @@ export const UserImgBox = styled.div`
   margin-bottom: 32px;
 
   img {
+    width: 140px;
+    height: 135px;
     object-fit: cover;
     display: block;
     margin: auto;
