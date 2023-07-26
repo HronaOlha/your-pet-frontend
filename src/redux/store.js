@@ -10,11 +10,13 @@ import {
 } from "redux-persist";
 import authReducer from "./auth/auth-slice";
 import { petsReducer } from "./pets/pets-slice";
+import { newsReducer } from "./news/news-slice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     pets: petsReducer,
+    news: newsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
