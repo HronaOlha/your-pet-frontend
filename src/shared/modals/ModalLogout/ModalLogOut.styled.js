@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ModalWrap = styled.div`
   position: relative;
   min-width: 280px;
-  padding: 60px 12px;
+  padding: 77px 12px 60px 12px;
   margin: 0 20px;
   border-radius: 20px;
 
@@ -24,19 +24,20 @@ export const ModalWrap = styled.div`
 
 export const Title = styled.h2`
   font-size: 24px;
-  font-weight: ${({ theme: { fontWeights } }) => fontWeights.bold};
+  font-weight: ${({ theme: { fontWeights } }) => fontWeights.medium};
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 44px;
 
   @media (${({ theme: { media } }) => media.tablet}) {
-    font-size: 28px;
+    font-size: 36px;
+    margin-bottom: 48px;
   }
 `;
 
 export const ButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: calc(100% - 12px);
+  width: 100%;
   gap: 8px;
 
   @media (${({ theme: { media } }) => media.tablet}) {
@@ -57,10 +58,14 @@ export const CancelButton = styled.button`
   color: ${({ theme: { colors } }) => colors.primary};
   font-size: 16px;
   font-weight: ${({ theme: { fontWeights } }) => fontWeights.bold};
+
+  :hover, :focus {
+    background: linear-gradient(90deg, #9bd0ff, #419ef1);
+    color: ${(props) => props.theme.colors.white};
 `;
 
 export const SuccesButton = styled.button`
-  padding: 9px 34px;
+  padding: 6px 34px;
 
   border: ${({ theme: { borders, colors } }) =>
     `${borders.medium} ${colors.primary}`};
@@ -78,16 +83,17 @@ export const SuccesButton = styled.button`
   gap: 8px;
 
   * {
-    width: 24px;
-    height: 24px;
-    fill: ${({ theme: { colors } }) => colors.white};
+    stroke: ${({ theme: { colors } }) => colors.white};
   }
+
+  :hover, :focus {
+    background: linear-gradient(90deg, #9bd0ff, #419ef1);
 `;
 
 export const CloseButton = styled.div`
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: 12px;
+  right: 12px;
 
   width: 24px;
   height: 24px;
@@ -98,4 +104,19 @@ export const CloseButton = styled.div`
   * {
     stroke: ${({ theme: { colors } }) => colors.primary};
   }
+
+  @media (${({ theme: { media } }) => media.tablet}) {
+    top: 24px;
+    right: 24px;
+  }
+`;
+
+export const CloseIcon = styled.svg`
+  width: 24px;
+  height: 24px;
+`;
+
+export const LogoutIcon = styled.svg`
+  width: 24px;
+  height: 24px;
 `;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DropdownContainer, TimeBox, TimeList } from "./Dropdown.styled";
 import { Text, TimeItem } from "../friendsItem/FriendsItem.styled";
+import PropTypes from "prop-types";
 
 const Dropdown = ({ workDays }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,5 +53,14 @@ const Dropdown = ({ workDays }) => {
       )}
     </DropdownContainer>
   );
+};
+Dropdown.propTypes = {
+  workDays: PropTypes.arrayOf(
+    PropTypes.shape({
+      isOpen: PropTypes.bool.isRequired,
+      from: PropTypes.string,
+      to: PropTypes.string,
+    })
+  ),
 };
 export default Dropdown;

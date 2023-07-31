@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const StyledUserNav = styled.div`
-
-  @media (min-width: 1280px) {
+  @media ${(props) => props.theme.media.desktop} {
     display: flex;
     gap: 24px;
   }
@@ -16,13 +15,11 @@ export const StyledLogout = styled.div`
     left: 0;
   }
 
-  @media (min-width: 768px) {
+  @media ${(props) => props.theme.media.tablet} {
     position: static;
-    // top: 26px;
-    // right: 80px;
   }
 
-  @media (min-width: 1280px) {
+  @media ${(props) => props.theme.media.desktop} {
     position: static;
   }
 `;

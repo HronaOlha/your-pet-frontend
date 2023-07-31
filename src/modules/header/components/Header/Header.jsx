@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import spriteSvg from "../../../../assets/icons.svg";
@@ -16,6 +16,7 @@ import {
 
 const Header = () => {
   const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
+  const nodeRef = useRef(null);
 
   const onCloseMobileMenu = () => {
     if(isMobileMenuOpen) setisMobileMenuOpen(false);
@@ -40,12 +41,13 @@ const Header = () => {
 
       {/* {isMobileMenuOpen && ( */}
       <CSSTransition
+        nodeRef={nodeRef}
         in={isMobileMenuOpen}
         classNames="fade"
         timeout={250}
         unmountOnExit
       >
-        <MobileMenu>
+        <MobileMenu ref={nodeRef}>
           <MobileMenuContainer>
             <MenuWrap>
               <Logo />

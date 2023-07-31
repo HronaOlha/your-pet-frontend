@@ -12,7 +12,7 @@ const Navigation = (props) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn);
-  // const isLoggedIn = true;
+
   useEffect(() => {
       const onDetectDesktop = function () {
         if (window.matchMedia("(min-width: 1280px)").matches) setIsDesktop(true);

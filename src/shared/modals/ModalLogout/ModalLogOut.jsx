@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../../redux/auth/auth-operations";
 import Modal from "../modalPort/Modal";
+import spriteSvg from "../../../assets/icons.svg";
 import {
   ButtonWrap,
   CancelButton,
@@ -7,11 +10,9 @@ import {
   ModalWrap,
   SuccesButton,
   Title,
+  LogoutIcon,
+  CloseIcon,
 } from "./ModalLogOut.styled";
-import { ReactComponent as CloseSvg } from "../../../assets/icons/cross-small.svg";
-import { ReactComponent as LogOutSvg } from "../../../assets/icons/logout.svg";
-import { useDispatch } from "react-redux";
-import { logOut } from "../../../redux/auth/auth-operations";
 
 const ModalLogOut = ({ toggleModal }) => {
   const dispatch = useDispatch();
@@ -26,12 +27,16 @@ const ModalLogOut = ({ toggleModal }) => {
           </CancelButton>
           <SuccesButton type="button" onClick={onSucces}>
             Yes
-            <LogOutSvg />
+            <LogoutIcon>
+              <use href={spriteSvg + "#logout"} />
+            </LogoutIcon>
           </SuccesButton>
         </ButtonWrap>
 
         <CloseButton onClick={toggleModal}>
-          <CloseSvg />
+          <CloseIcon>
+            <use href={spriteSvg + "#cross"} />
+          </CloseIcon>
         </CloseButton>
       </ModalWrap>
     </Modal>

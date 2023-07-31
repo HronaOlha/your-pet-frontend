@@ -9,15 +9,11 @@ export const StyledAuthNav = styled.ul`
   flex-direction: column;
   gap: 12px;
 
-  @media (min-width: 768px) {
+  @media ${(props) => props.theme.media.tablet} {
     flex-direction: row;
     align-items: center;
     gap: 20px;
   }
-
-  // @media (min-width: 768px) and (max-width: 1279px) {
-  //   position: absolute;
-  // }
 `;
 
 export const StyledAuthNavItem = styled.li`
@@ -29,7 +25,7 @@ export const StyledAuthNavItem = styled.li`
 export const StyledLoginIcon = styled.svg`
   width: 24px;
   height: 24px;
-  fill: #fef9f9;
+  fill: ${(props) => props.theme.colors.background};
 `;
 
 export const StyledAuthNavButton = styled(Link)`
@@ -38,7 +34,6 @@ export const StyledAuthNavButton = styled(Link)`
   justify-content: center;
   gap: 8px;
 
-  // max-width: 300px;
   @media (max-width: 767px) {
     min-width: 165px;
     margin-left: auto;
@@ -62,21 +57,13 @@ export const StyledAuthNavButton = styled(Link)`
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  :hover {
+  :hover, :focus {
     background-color: ${(props) => (props.$primary ? "#FEF9F9" : "#FFC107")};
     color: ${(props) => (props.$primary ? "#FFC107" : "#FEF9F9")};
     border: 2px solid #ffc107;
     cursor: pointer;
     ${StyledLoginIcon} {
-      fill: #ffc107;
+      fill: ${(props) => props.theme.colors.secondary};
     }
   }
 `;
-
-// export const StyledAuthNavMobileMenuTalet = styled.div`
-//   @media (min-width: 768px) and (max-width: 1279px) {
-//     // position: absolute;
-//     top: 0;
-//     left: 0;
-//   }
-// `;

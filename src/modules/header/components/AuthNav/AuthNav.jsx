@@ -5,14 +5,12 @@ import {
   StyledAuthNav,
   StyledAuthNavItem,
   StyledAuthNavButton,
-  // StyledAuthNavMobileMenuTalet,
 } from "./AuthNav.styled";
 
 const AuthNav = (props) => {
   const { onCloseMobileMenu } = props;
   return (
     <StyledAuthNav>
-      {/* <StyledAuthNavMobileMenuTalet> */}
       <StyledAuthNavItem>
         <StyledAuthNavButton $primary to="/login" onClick={onCloseMobileMenu}>
           Log IN
@@ -26,7 +24,6 @@ const AuthNav = (props) => {
           Registration
         </StyledAuthNavButton>
       </StyledAuthNavItem>
-      {/* </StyledAuthNavMobileMenuTalet> */}
     </StyledAuthNav>
   );
 };

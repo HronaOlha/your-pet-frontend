@@ -6,7 +6,7 @@ import userSvg from "../../../../assets/icons/avatar.svg";
 import { StyledUser, StyledUserName, StyledUserIcon } from "./User.styled";
 
 const User = (props) => {
-  const { isMobileMenuOpen, isDesktop } = props;
+  const { isMobileMenuOpen, isDesktop, onCloseMobileMenu } = props;
   const [isTablet, setIsTablet] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const userName = useSelector(authSelectors.selectUserName);
@@ -43,7 +43,7 @@ const User = (props) => {
   }, []);
 
   return (
-    <StyledUser to="/user">
+    <StyledUser to="/user" onClick={onCloseMobileMenu}>
       {(!isTablet || (isTablet && !isMobileMenuOpen)) && (
         <StyledUserIcon src={userSvg} alt="user avatar" />
       )}
@@ -58,6 +58,7 @@ const User = (props) => {
 User.propTypes = {
   isMobileMenuOpen: PropTypes.bool,
   isDesktop: PropTypes.bool,
+  onCloseMobileMenu: PropTypes.func,
 };
 
 export default User;

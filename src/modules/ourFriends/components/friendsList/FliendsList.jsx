@@ -5,6 +5,7 @@ import { FriendsContainer, List } from "./FriendsList.styled";
 
 const FriendsList = () => {
   const friends = useSelector(getAllFriends);
+
   return (
     <FriendsContainer>
       <h2>Our Friends</h2>

@@ -1,5 +1,6 @@
 import Dropdown from "../dropdown/Dropdown";
 import pawPrint from "../../../../images/ourFriends-default/pngwing.png";
+import PropTypes from "prop-types";
 
 import {
   CardBox,
@@ -54,5 +55,18 @@ const FriendsItem = ({
       </CardBox>
     </CardItem>
   );
+};
+
+FriendsItem.propTypes = {
+  friend: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    addressUrl: PropTypes.string,
+    imageUrl: PropTypes.string,
+    address: PropTypes.string,
+    workDays: PropTypes.arrayOf(PropTypes.object),
+    phone: PropTypes.string,
+    email: PropTypes.string,
+  }),
 };
 export default FriendsItem;

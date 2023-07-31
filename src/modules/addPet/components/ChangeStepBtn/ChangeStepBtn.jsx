@@ -1,4 +1,4 @@
-
+import PropTypes from "prop-types";
 
 const ChangeStepBtn = ({ isFirstStep, isLastStep, next, back }) => {
     return (
@@ -12,3 +12,10 @@ const ChangeStepBtn = ({ isFirstStep, isLastStep, next, back }) => {
 };
 
 export default ChangeStepBtn;
+
+ChangeStepBtn.propTypes = {
+    isFirstStep: PropTypes.bool.isRequired,
+    isLastStep: PropTypes.bool.isRequired,
+    next: PropTypes.func.isRequired,
+    back: PropTypes.func.isRequired
+};

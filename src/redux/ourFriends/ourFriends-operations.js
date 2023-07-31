@@ -9,7 +9,7 @@ const getFriends = createAsyncThunk(
 
       return data.sponsors;
     } catch (error) {
-      rejectWithValue(error);
+      return rejectWithValue(error);
     }
   }
 );
