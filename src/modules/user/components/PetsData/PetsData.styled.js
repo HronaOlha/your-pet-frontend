@@ -68,6 +68,12 @@ export const UserPetsNavBtn = styled.button`
   letter-spacing: 0.04em;
   color: #fef9f9;
 
+  &:hover {
+    color: ${(props) => props.theme.colors.white};
+
+    background: -webkit-linear-gradient(315deg, #9bd0ff 0%, #419ef1 100%);
+  }
+
   &:hover,
   &:focus {
     font-style: normal;

@@ -1,7 +1,17 @@
 import { useState } from "react";
 import Modal from "../../../../shared/modals/modalPort/Modal";
 
-import { BtnClose, BtnCongrats, Text, Title } from "./ ModalCongrats.styled";
+import {
+  Box,
+  BtnClose,
+  BtnCongrats,
+  Svg,
+  Text,
+  Title,
+} from "./ ModalCongrats.styled";
+
+import sprite from "../../../../assets/icons.svg";
+import { ReactComponent as Pawnprint } from "../../../../assets/icons/pawprint.svg";
 
 export const ModalCongrats = () => {
   const [isOpenModalCongrats, setIsOpenModalCongrats] = useState(true);
@@ -13,16 +23,20 @@ export const ModalCongrats = () => {
   return (
     <>
       {isOpenModalCongrats && (
-        <Modal onClick={closeModal}>
-          <BtnClose type="button">
-            <svg />
-          </BtnClose>
-          <Title>Congrats!</Title>
-          <Text>Youre registration is success</Text>
-          <BtnCongrats type="button" onClick={closeModal}>
-            Go to profile
-            <svg />
-          </BtnCongrats>
+        <Modal toggleModal={closeModal}>
+          <Box>
+            <BtnClose type="button" onClick={closeModal}>
+              <Svg>
+                <use href={sprite + "#cross"} />
+              </Svg>
+            </BtnClose>
+            <Title>Congrats!</Title>
+            <Text>Youre registration is success</Text>
+            <BtnCongrats type="button" onClick={closeModal}>
+              Go to profile
+              <Pawnprint />
+            </BtnCongrats>
+          </Box>
         </Modal>
       )}
     </>
