@@ -12,14 +12,17 @@ import {
   UserFormList,
   UserFormInfo,
   BtnText,
+  UserFormSvg,
 } from "./UserForm.styled";
 
 import { updateUser } from "./../../../../redux/auth/auth-operations";
 import authSelectors from "./../../../../redux/auth/auth-selectors";
 import AddPhoto from "../UserPhoto/UserPhoto";
-import { compareObjects } from "../../../../shared/utils/compareObjects";
+
 import ModalLogOut from "../../../../shared/modals/ModalLogout/ModalLogOut";
 import { useState } from "react";
+
+import sprite from "../../../../assets/icons.svg";
 
 const UserForm = ({ isUserUpdate, setIsUserUpdate }) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -107,7 +110,10 @@ const UserForm = ({ isUserUpdate, setIsUserUpdate }) => {
             </UserFormList>
             {isUserUpdate ? (
               <UserFormBtn type="button" onClick={toggleModal}>
-                <BtnText> svg + Log Out</BtnText>
+                <UserFormSvg>
+                  <use href={sprite + "#logout"} />
+                </UserFormSvg>
+                <BtnText>Log Out</BtnText>
               </UserFormBtn>
             ) : (
               <UserFormBtn>

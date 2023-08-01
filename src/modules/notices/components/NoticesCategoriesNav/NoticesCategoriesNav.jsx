@@ -10,6 +10,7 @@ import {
   FilterCategoryBtn,
   FilterCategoryWrap,
   FilterCategoryText,
+  NoticesCategoryContainer,
 } from "./NoticesCategoriesNav.styled";
 import useSearch from "../NoticesSearch/hook/useSearch";
 import { useDispatch, useSelector } from "react-redux";
@@ -93,20 +94,12 @@ function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
   };
 
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        gap:
-          isBeforeOneYear || isUpOneYear || isUpTwoYear || isFemale || isMale
-            ? 8
-            : 0,
-        marginBottom: 24,
-      }}
+    <NoticesNavMainContainer
+      isActiveItems={
+        isBeforeOneYear || isUpOneYear || isUpTwoYear || isFemale || isMale
+      }
     >
-      <NoticesNavMainContainer>
+      <NoticesCategoryContainer>
         <NoticesNavWrap>
           {categoryBtnsUrl.map((btn) => (
             <LinkButton
@@ -126,7 +119,7 @@ function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
           />
           <AddPetButton />
         </FilterAndAddPetBtnWrap>
-      </NoticesNavMainContainer>
+      </NoticesCategoryContainer>
       <FilterCategoryWrap>
         {isBeforeOneYear && (
           <FilterCategoryBtn onClick={() => setIsBeforeOneYear(false)}>
@@ -169,7 +162,7 @@ function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
           </FilterCategoryBtn>
         )}
       </FilterCategoryWrap>
-    </div>
+    </NoticesNavMainContainer>
   );
 }
 

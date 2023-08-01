@@ -2,10 +2,26 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const NoticesNavMainContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: ${(props) => (props.isActiveItems ? "8px" : "0px")};
+  margin-bottom: 24px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: 1280px) {
+    margin-bottom: 42px;
+  }
+`;
+
+export const NoticesCategoryContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  /* position: relative; */
   margin: 0 auto;
 
   @media (max-width: 767px) {

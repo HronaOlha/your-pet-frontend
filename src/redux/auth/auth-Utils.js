@@ -1,4 +1,4 @@
-import { notifySucces } from "../../shared/toasters/Toasters";
+import { notifySucces, notifyError } from "../../shared/toasters/Toasters";
 import { formatDate } from "../../shared/utils/formatDate";
 import {
   logIn,
@@ -77,6 +77,7 @@ export const userUpdateFulfilled = (
   state,
   { payload: { token, tokenLifeTime, refreshToken, user } }
 ) => {
+  console.log(token);
   let birthday = "";
   if (user.birthday) {
     birthday = formatDate(user.birthday);
@@ -86,6 +87,11 @@ export const userUpdateFulfilled = (
   state.tokenLifeTime = tokenLifeTime;
   state.refreshToken = refreshToken;
   state.user = { ...user, birthday };
+};
+
+export const userUpdateRejected = (state, { payload }) => {
+  notifyError(`${payload.error}`);
+  console.log("=>>>>>>>>>>>>>>>>>", payload);
 };
 
 export const userRefreshFulfilled = (state, { payload: { user } }) => {

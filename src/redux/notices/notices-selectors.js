@@ -1,4 +1,5 @@
 export const noticesList = (state) => state.notices.items;
+export const noticesIsLoading = (state) => state.notices.isLoading;
 export const noticesFavoriteList = (state) => state.notices.favorite;
 export const noticesCardById = (state) => state.notices.cardById;
 export const noticesTotal = (state) => state.notices.total;

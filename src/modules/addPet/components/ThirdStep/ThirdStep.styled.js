@@ -1,6 +1,29 @@
 import { Field } from "formik";
 import styled from "styled-components";
 
+const setIconMaleColor = sex => {
+  switch (sex) {
+    case 'male':
+      return '#fef9f9';
+    case 'female':
+      return '#888';
+    default:
+      return '#54ADFF';
+  }
+};
+
+const setIconFemaleColor = sex => {
+  switch (sex) {
+    case 'female':
+      return '#fef9f9';
+    case 'male':
+      return '#888';
+    default:
+      return '#f43f5e';
+  }
+};
+
+
 export const ThirdStepContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -52,7 +75,14 @@ export const SexIcon = styled.svg`
     width: 24px;
   height: 24px;
   fill: none;
-  stroke: ${props => (props.isFemale ? '#F43F5E' : '#54ADFF')};
+
+  &.male {
+    stroke: ${props => setIconMaleColor(props.sex)}
+  }
+
+  &.female {
+    stroke: ${props => setIconFemaleColor(props.sex)}
+  }
 `;
 
 
@@ -141,10 +171,29 @@ export const FiledsContainer = styled.div`
   }
 `;
 
-export const Textarea = styled(Field)`
-margin-top: 4px;
+export const TextAreaInput = styled(Field)`
+    margin-top: 4px;
   width: 100%;
   height: 92px;
-  border-radius: 20px;
 
+  @media screen and (min-width: 768px) {
+    height: ${props => props.height};
+  }
 `
+
+
+export const Textarea = styled.textarea`
+  padding: 8px 16px;
+  border: 1px solid ${props => props.theme.colors.primary};
+  border-radius: 20px;
+  resize: vertical;
+  font-family: ${props => props.theme.fonts.main};
+  font-size: 14px;
+  text-align: top;
+
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
+`;
+

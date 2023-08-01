@@ -17,6 +17,18 @@ export const fetchNotices = createAsyncThunk(
   }
 );
 
+export const newPost = createAsyncThunk(
+  "notices/newPost",
+  async (post, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosPrivate.post("/notices/notice/add", post);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 export const fetchAddFavorite = createAsyncThunk(
   "notices/addFavorite",
   async (url, thunkAPI) => {

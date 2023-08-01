@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ErrorMessage, Form, Formik } from "formik";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -15,7 +16,10 @@ import {
   StepTitle,
   TitleBox,
 } from "./AddPetForm.styled";
-import { addPetShema, addPetShema2 } from "../../../../schemas/addPetShema";
+import { addPetShema } from "../../../../schemas/addPetShema";
+import { postPet } from "../../../../redux/pets/pets-operation";
+import { newPost } from "../../../../redux/notices/notices-operations";
+import { formatDate } from "../../../../shared/utils/formatDate";
 
 const AddPetForm = () => {
   const {
@@ -34,20 +38,39 @@ const AddPetForm = () => {
 
   const initialValues = {
     categories: currentRadioChecked,
-    add: "",
+    title: "",
     name: "",
-    birthday: "",
+    date: "",
     type: "",
     sex: selectedSex,
-    avatar: avatarFile,
+    file: avatarFile,
     location: "",
     price: "",
     comments: "",
   };
+
   const handleSubmit = (values, { resetForm }) => {
-    // const { email, password } = values;
-    console.log(values);
-    dispatch();
+    const { name, date, type, comments, categories } = values;
+
+    const formData = new FormData();
+
+    if (categories === "your-pet") {
+      formData.append("name", name);
+      formData.append("date", formatDate(date));
+      formData.append("type", type);
+    } else {
+      formData.append("value", values);
+      Object.entries(values).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+    }
+    formData.append("file", avatarFile);
+    comments && formData.append("comments", comments);
+
+    categories === "your-pet"
+      ? dispatch(postPet(formData))
+      : dispatch(newPost(formData));
+
     resetForm();
   };
 
@@ -55,9 +78,7 @@ const AddPetForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={
-        currentRadioChecked === "your-pet" ? addPetShema2 : addPetShema
-      }
+      validationSchema={addPetShema}
     >
       {(formik) => {
         const handleCategories = (e) => {

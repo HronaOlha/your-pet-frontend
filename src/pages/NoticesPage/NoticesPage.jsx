@@ -8,7 +8,7 @@ import {
   noticesList,
   noticesTotal,
 } from "../../redux/notices/notices-selectors";
-import { NoticesContainer } from "./NoticesPage.styled";
+import { NoticesContainer, NoticesTitle } from "./NoticesPage.styled";
 import Pagination from "../../shared/components/Notices/Pagination";
 import ScrollTopButton from "../../shared/components/Notices/ScrollTopButton";
 
@@ -42,6 +42,7 @@ function NoticesPage() {
 
   return (
     <NoticesContainer>
+      <NoticesTitle>Find your favorite pet</NoticesTitle>
       <NoticesSearch />
       <NoticesCategoriesNav
         currentPage={currentPage}

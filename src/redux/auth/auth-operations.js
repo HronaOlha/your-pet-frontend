@@ -57,10 +57,11 @@ export const logOut = createAsyncThunk("auth/logOut", async () => {
 
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
-  async (credentials) => {
+  async (credentials, { rejectWithValue }) => {
+    console.log("string ");
     try {
       const { data } = await axiosPrivate.put("/users/update", credentials);
-
+      console.log(data);
       token.set(data.token);
       // notifyFulfilledLogin();
       console.log("тут фулфілд логін");
@@ -68,9 +69,8 @@ export const updateUser = createAsyncThunk(
       return data;
     } catch (error) {
       // notifyErrorLogin();
-      console.log(error);
       console.log("тут ерор updateUser func - operation");
-      return;
+      return rejectWithValue(error);
     }
   }
 );

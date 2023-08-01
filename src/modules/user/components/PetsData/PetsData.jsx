@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import PetsList from "../PetsList/PetsList";
 
@@ -44,7 +44,7 @@ const PetsData = () => {
             data-testid="loader"
           />
         </div>
-      ) : !pets && pets.length === 0 ? (
+      ) : !pets || pets.length === 0 ? (
         <NoUserPets>
           You have not added a pet yet, you have the option to add your furry
           friend!

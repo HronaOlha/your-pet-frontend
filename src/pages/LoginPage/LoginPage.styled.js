@@ -11,6 +11,8 @@ import bgDesk from "../../images/mainPage-image/bg-desk.png";
 import bgDesk2x from "../../images/mainPage-image/bg2x-desk.png";
 export const LoginBg = styled.div`
   position: absolute;
+  top: 12%;
+  left: 0;
   width: 100%;
   height: 100%;
   padding-top: 60px;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Error = styled.div`
+  // position: absolute;
   margin-top: 4px;
   margin-left: 20px;
   width: 100%;
@@ -11,4 +12,12 @@ export const Error = styled.div`
 
 export const Correct = styled(Error)`
   color: green;
+`;
+
+export const RegisterError = styled(Error)`
+  top: 44px;
+`;
+
+export const RegisterCorrect = styled(Correct)`
+  top: 44px;
 `;

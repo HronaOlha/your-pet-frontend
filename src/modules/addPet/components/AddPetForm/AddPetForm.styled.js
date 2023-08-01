@@ -59,4 +59,21 @@ export const StepTitle = styled.h3`
     top: 35px;
     left: 0;
     }
+
+  &:nth-child(1) {
+    color: ${props => (props.isCompleated && props.theme.colors.green)}
+  }
+
+  &:nth-child(1)::after {
+    background-color: ${props => (props.isCompleated && props.theme.colors.green)};
+  }
+
+  &:nth-child(2) {
+    color: ${props => (props.isCompleated && props.theme.colors.green)}
+  }
+
+  &:nth-child(2)::after {
+    background-color: ${props => (props.isCompleated && props.theme.colors.green)};
+  }
+
 `;

@@ -1,6 +1,10 @@
 import * as Yup from "yup";
-import { Correct, Error } from "./formValid.styled";
-import { ErrorMessage } from "formik";
+import {
+  Correct,
+  Error,
+  RegisterCorrect,
+  RegisterError,
+} from "./formValid.styled";
 
 const emailValid =
   /^([a-zA-Z0-9]{1}[a-zA-Z0-9_\-.]{1,})@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,4})$/;
@@ -46,11 +50,17 @@ const RegisterSchema = Yup.object().shape({
 const InputError = ({ name }) => {
   return (
     <Error>
-      <ErrorMessage
-        name={name}
-        render={(message) => <p style={{ margin: 0 }}>{message}</p>}
-      />
+      <p style={{ margin: 0 }}>{name}</p>
     </Error>
+  );
+};
+
+// eslint-disable-next-line react/prop-types
+const InputRegisterError = ({ name }) => {
+  return (
+    <RegisterError>
+      <p style={{ margin: 0 }}>{name}</p>
+    </RegisterError>
   );
 };
 
@@ -63,4 +73,20 @@ const InputCorrect = ({ name }) => {
   );
 };
 
-export { LoginSchema, RegisterSchema, InputError, InputCorrect };
+// eslint-disable-next-line react/prop-types
+const InputRegisterCorrect = ({ name }) => {
+  return (
+    <RegisterCorrect>
+      <p style={{ margin: 0 }}>{name}</p>
+    </RegisterCorrect>
+  );
+};
+
+export {
+  LoginSchema,
+  RegisterSchema,
+  InputError,
+  InputRegisterError,
+  InputCorrect,
+  InputRegisterCorrect,
+};

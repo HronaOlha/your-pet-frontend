@@ -172,6 +172,8 @@ export const BtnText = styled.p`
 
   color: #888;
 
+  padding: 10px;
+
   font-family: Manrope, sans-serif;
   font-size: 16px;
   font-weight: 500;

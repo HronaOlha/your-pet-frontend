@@ -12,12 +12,13 @@ import {
   UserPetsSvg,
 } from "./PetsItem.styled";
 import sprite from "../../../../assets/icons.svg";
+import { formatDate } from "../../../../shared/utils/formatDate";
 
-const PetsItem = ({ _id, image, name, birth, type, comments }) => {
+const PetsItem = ({ id, image, name, birthday, type, comments }) => {
   const dispatch = useDispatch();
 
-  const handelDellPets = (_id) => {
-    dispatch(deletePet(_id));
+  const handelDellPets = (id) => {
+    dispatch(deletePet(id));
   };
   return (
     <UserPetsInfo>
@@ -29,7 +30,8 @@ const PetsItem = ({ _id, image, name, birth, type, comments }) => {
           <UserPetsItemSpan> {name}</UserPetsItemSpan>
         </UserPetsItem>
         <UserPetsItem>
-          Date of birth: <UserPetsItemSpan> {birth}</UserPetsItemSpan>
+          Date of birth:{" "}
+          <UserPetsItemSpan> {formatDate(birthday, ".")}</UserPetsItemSpan>
         </UserPetsItem>
         <UserPetsItem>
           Type:{""}
@@ -42,7 +44,7 @@ const PetsItem = ({ _id, image, name, birth, type, comments }) => {
       </UserPetsList>
       <UserPetsBtn
         onClick={() => {
-          handelDellPets(_id);
+          handelDellPets(id);
         }}
       >
         <UserPetsSvg>
@@ -54,12 +56,12 @@ const PetsItem = ({ _id, image, name, birth, type, comments }) => {
 };
 
 PetsItem.propTypes = {
-  _id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  birth: PropTypes.string.isRequired,
+  birthday: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  comments: PropTypes.string.isRequired,
+  comments: PropTypes.string,
 };
 
 export default PetsItem;

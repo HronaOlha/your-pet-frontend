@@ -9,13 +9,13 @@ const PetsList = () => {
   return (
     <div>
       {pets &&
-        pets.map(({ _id, petsURL, name, birthday, type, comments }) => (
+        pets.map(({ _id, fileUrl, name, date, type, comments }) => (
           <PetsItem
             key={_id}
             id={_id}
-            image={petsURL}
+            image={fileUrl}
             name={name}
-            birth={birthday}
+            birthday={date}
             type={type}
             comments={comments}
           />

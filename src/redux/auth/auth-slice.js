@@ -20,6 +20,7 @@ import {
   handlefulfilled,
   userFulfilled,
   userUpdateFulfilled,
+  userUpdateRejected,
   userRefreshFulfilled,
   userRefreshRejected,
   refreshTokenFullfilled,
@@ -40,6 +41,7 @@ const initialState = {
   isLoggedIn: false,
   isLoader: false,
   isRefreshing: false,
+  error: "",
 };
 
 const authSlice = createSlice({
@@ -61,6 +63,7 @@ const authSlice = createSlice({
 
       // UPDATE USER
       .addCase(updateUser.fulfilled, userUpdateFulfilled)
+      .addCase(updateUser.rejected, userUpdateRejected)
 
       // GetCurrentUser
       .addCase(getCurrentUser.fulfilled, getUserFulfilled)
