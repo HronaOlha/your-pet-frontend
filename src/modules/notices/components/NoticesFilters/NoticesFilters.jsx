@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
+
 import {
   FilterBtn,
   FilterItem,
@@ -6,31 +8,32 @@ import {
   FilterList,
   Label,
 } from "./NoticesFilters.styled";
-import CheckRoundSVG from "./svg/svg-check";
-import UncheckRoundSVG from "./svg/svg-uncheck";
-import FilterSVG from "./svg/svg-filter";
-import ArrowSVG from "./svg/svg-arrow";
-// import { useSearchParams } from "react-router-dom";
-import initialFilterValue from "./initialFilterValue";
-import useSearch from "../NoticesSearch/hook/useSearch";
 
-function NoticesFilters() {
-  const [isExpandedFilter, setExpandedFilter] = useState(false);
-  const [isExpandedAge, setExpandedAge] = useState(false);
-  const [isExpandedGender, setExpandedGender] = useState(false);
+import { useSearchParams } from "react-router-dom";
+import icons from "../../../../assets/icons.svg";
+import useScreenWidth from "./hooks/useScreenWidth";
+import useOpenFilter from "./hooks/useOpenFilter";
 
-  const [isBeforeOneYear, setIsBeforeOneYear] = useState(
-    initialFilterValue("0.5")
-  );
-  const [isUpOneYear, setIsUpOneYear] = useState(initialFilterValue("1"));
-  const [isUpTwoYear, setIsUpTwoYear] = useState(initialFilterValue("2"));
-  const [isFemale, setIsFemale] = useState(initialFilterValue("female"));
-  const [isMale, setIsMale] = useState(initialFilterValue("male"));
-
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  // const [searchParams, setSearchParams] = useSearchParams();
-  const { setSearchParams } = useSearch();
+function NoticesFilters({
+  filterState: { isBeforeOneYear, isUpOneYear, isUpTwoYear, isFemale, isMale },
+  setFilterState: {
+    setIsBeforeOneYear,
+    setIsUpOneYear,
+    setIsUpTwoYear,
+    setIsFemale,
+    setIsMale,
+  },
+}) {
+  const {
+    isExpandedFilter,
+    isExpandedAge,
+    isExpandedGender,
+    handleFilterClick,
+    handleAgeClick,
+    handleGenderClick,
+  } = useOpenFilter();
+  const [, setSearchParams] = useSearchParams();
+  const screenWidth = useScreenWidth();
 
   useEffect(() => {
     const dateArray = [];
@@ -48,24 +51,19 @@ function NoticesFilters() {
     }
 
     setSearchParams((prevSearchParams) => {
-      // Создаем новый объект URLSearchParams на основе текущих параметров
-      const newSearchParams = new URLSearchParams(prevSearchParams);
-
-      // Устанавливаем параметр 'date'
       if (dateArray.length > 0) {
-        newSearchParams.set("date", dateArray.join(","));
+        prevSearchParams.set("date", dateArray.join(","));
       } else {
-        newSearchParams.delete("date");
+        prevSearchParams.delete("date");
       }
 
-      // Устанавливаем параметр 'sex'
       if (sexArray.length > 0) {
-        newSearchParams.set("sex", sexArray.join(","));
+        prevSearchParams.set("sex", sexArray.join(","));
       } else {
-        newSearchParams.delete("sex");
+        prevSearchParams.delete("sex");
       }
 
-      return newSearchParams;
+      return prevSearchParams;
     });
   }, [
     isBeforeOneYear,
@@ -77,60 +75,59 @@ function NoticesFilters() {
   ]);
 
   useEffect(() => {
-    const handleResize = () => {
-      setScreenWidth(window.innerWidth);
-    };
+    const dateArray = [];
+    const sexArray = [];
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const handleFilterClick = (e) => {
-    // console.dir(e.target);
-    const { nodeName, textContent } = e.target;
-    const nodeValue = e.target.attributes.class?.nodeValue;
-
-    if (
-      nodeName === "DIV" ||
-      (nodeName === "P" && textContent === "Filter") ||
-      nodeValue === "main-icon"
-    ) {
-      setExpandedFilter((prevState) => !prevState);
+    if (isBeforeOneYear || isUpOneYear || isUpTwoYear) {
+      if (isBeforeOneYear) dateArray.push("0.5");
+      if (isUpOneYear) dateArray.push("1");
+      if (isUpTwoYear) dateArray.push("2");
     }
-  };
 
-  const handleAgeClick = (e) => {
-    const { tagName, textContent } = e.target;
-
-    if (tagName === "LI" || (tagName === "P" && textContent === "By age")) {
-      setExpandedAge((prevState) => !prevState);
+    if (isFemale || isMale) {
+      if (isMale) sexArray.push("male");
+      if (isFemale) sexArray.push("female");
     }
-  };
 
-  const handleGenderClick = (e) => {
-    const { tagName, textContent } = e.target;
+    setSearchParams((prevSearchParams) => {
+      if (dateArray.length > 0) {
+        prevSearchParams.set("date", dateArray.join(","));
+      } else {
+        prevSearchParams.delete("date");
+      }
 
-    if (tagName === "LI" || (tagName === "P" && textContent === "By gender")) {
-      setExpandedGender((prevState) => !prevState);
-    }
-  };
+      if (sexArray.length > 0) {
+        prevSearchParams.set("sex", sexArray.join(","));
+      } else {
+        prevSearchParams.delete("sex");
+      }
+
+      return prevSearchParams;
+    });
+  }, [
+    isBeforeOneYear,
+    isFemale,
+    isMale,
+    isUpOneYear,
+    isUpTwoYear,
+    setSearchParams,
+  ]);
 
   return (
     <FilterBtn isExpandedFilter={isExpandedFilter} onClick={handleFilterClick}>
       {!isExpandedFilter ? (
         <>
           {screenWidth >= 768 && <p>Filter</p>}
-          <FilterSVG />
+          <svg className="main-icon" width="24" height="24">
+            <use href={icons + "#filters"} />
+          </svg>
         </>
       ) : (
         <>
           <p
             style={{
               width: "100%",
-              pointerEvents: "none",
+              cursor: "pointer",
             }}
           >
             Filter
@@ -164,9 +161,13 @@ function NoticesFilters() {
                         onChange={() => setIsBeforeOneYear((prev) => !prev)}
                       />
                       {isBeforeOneYear ? (
-                        <CheckRoundSVG />
+                        <svg width="24" height="24">
+                          <use href={icons + "#check-round"} />
+                        </svg>
                       ) : (
-                        <UncheckRoundSVG />
+                        <svg width="24" height="24">
+                          <use href={icons + "#round"} />
+                        </svg>
                       )}
                       <span>3-12 m</span>
                     </Label>
@@ -176,7 +177,15 @@ function NoticesFilters() {
                         checked={isUpOneYear}
                         onChange={() => setIsUpOneYear((prev) => !prev)}
                       />
-                      {isUpOneYear ? <CheckRoundSVG /> : <UncheckRoundSVG />}
+                      {isUpOneYear ? (
+                        <svg width="24" height="24">
+                          <use href={icons + "#check-round"} />
+                        </svg>
+                      ) : (
+                        <svg width="24" height="24">
+                          <use href={icons + "#round"} />
+                        </svg>
+                      )}
                       <span>up to 1 year</span>
                     </Label>
                     <Label>
@@ -185,14 +194,24 @@ function NoticesFilters() {
                         checked={isUpTwoYear}
                         onChange={() => setIsUpTwoYear((prev) => !prev)}
                       />
-                      {isUpTwoYear ? <CheckRoundSVG /> : <UncheckRoundSVG />}
+                      {isUpTwoYear ? (
+                        <svg width="24" height="24">
+                          <use href={icons + "#check-round"} />
+                        </svg>
+                      ) : (
+                        <svg width="24" height="24">
+                          <use href={icons + "#round"} />
+                        </svg>
+                      )}
                       <span>up to 2 year</span>
                     </Label>
                   </div>
                 </div>
               ) : (
                 <>
-                  <ArrowSVG />
+                  <svg width="24" height="24" style={{ pointerEvents: "none" }}>
+                    <use href={icons + "#chevron-down"} />
+                  </svg>
                   <p>By age</p>
                 </>
               )}
@@ -224,7 +243,15 @@ function NoticesFilters() {
                         checked={isFemale}
                         onChange={() => setIsFemale((prev) => !prev)}
                       />
-                      {isFemale ? <CheckRoundSVG /> : <UncheckRoundSVG />}
+                      {isFemale ? (
+                        <svg width="24" height="24">
+                          <use href={icons + "#check-round"} />
+                        </svg>
+                      ) : (
+                        <svg width="24" height="24">
+                          <use href={icons + "#round"} />
+                        </svg>
+                      )}
                       <span>female</span>
                     </Label>
                     <Label>
@@ -233,14 +260,24 @@ function NoticesFilters() {
                         checked={isMale}
                         onChange={() => setIsMale((prev) => !prev)}
                       />
-                      {isMale ? <CheckRoundSVG /> : <UncheckRoundSVG />}
+                      {isMale ? (
+                        <svg width="24" height="24">
+                          <use href={icons + "#check-round"} />
+                        </svg>
+                      ) : (
+                        <svg width="24" height="24">
+                          <use href={icons + "#round"} />
+                        </svg>
+                      )}
                       <span>male</span>
                     </Label>
                   </div>
                 </div>
               ) : (
                 <>
-                  <ArrowSVG />
+                  <svg width="24" height="24" style={{ pointerEvents: "none" }}>
+                    <use href={icons + "#chevron-down"} />
+                  </svg>
                   <p>By gender</p>
                 </>
               )}
@@ -253,3 +290,20 @@ function NoticesFilters() {
 }
 
 export default NoticesFilters;
+
+NoticesFilters.propTypes = {
+  filterState: PropTypes.shape({
+    isBeforeOneYear: PropTypes.bool.isRequired,
+    isUpOneYear: PropTypes.bool.isRequired,
+    isUpTwoYear: PropTypes.bool.isRequired,
+    isFemale: PropTypes.bool.isRequired,
+    isMale: PropTypes.bool.isRequired,
+  }).isRequired,
+  setFilterState: PropTypes.shape({
+    setIsBeforeOneYear: PropTypes.func.isRequired,
+    setIsUpOneYear: PropTypes.func.isRequired,
+    setIsUpTwoYear: PropTypes.func.isRequired,
+    setIsFemale: PropTypes.func.isRequired,
+    setIsMale: PropTypes.func.isRequired,
+  }).isRequired,
+};

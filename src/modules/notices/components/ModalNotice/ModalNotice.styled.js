@@ -1,26 +1,16 @@
 import styled from "styled-components";
 
-export const ModalNoticeBackdrop = styled.div`
-position: fixed;
-top:0;
-width: 100%;
-height: 100%;
-background: rgba(97, 97, 97, 0.60);
-backdrop-filter: blur(4px);
-z-index:1;
-`;
-
 export const ModalNoticeBox = styled.div`
- position: relative;
-top: 50%; /* Center vertically */
-left: 50%; /* Center horizontally */
-transform: translate(-50%, -50%); /* Center both horizontally and vertically */
-width: 681px;
-height: 540px;
-padding: 24px 31px;
-border-radius: 40px;
-// background: #5555;
-background: #FFF;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 681px;
+  height: 540px;
+  padding: 24px 31px;
+  border-radius: 40px;
+  background: #fff;
 
   @media (max-width: 767px) {
     width: 280px;
@@ -31,6 +21,7 @@ background: #FFF;
 `;
 
 export const Image = styled.img`
+  // display: block;
   width: 262px;
   height: 298px;
 
@@ -43,6 +34,26 @@ export const Image = styled.img`
     border-radius: 0px 0px 40px 40px;
     background: lightgray 0px -14.355px / 100% 150.131% no-repeat;
   }
+`;
+
+export const Category = styled.p`
+  position: absolute;
+  top: 44px;
+  left: 31px;
+  width: 126px;
+  height: 32px;
+  padding: 11px 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0px 16px 16px 0px;
+  background: #cce4fb;
+
+  color: #111;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 export const ModalNoticeWrap = styled.div`
@@ -66,6 +77,7 @@ export const CloseBtn = styled.button`
   right: 26px;
   background-color: transparent;
   border: transparent;
+  stroke: #54adff;
 
   width: 24px;
   height: 24px;
@@ -76,8 +88,8 @@ export const CloseBtn = styled.button`
     right: 12px;
   }
 
-  :hover svg path,
-  :focus svg path {
+  :hover,
+  :focus {
     stroke: rgb(255, 193, 7);
   }
 `;
@@ -110,7 +122,6 @@ export const ModalNoticeInfoList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 8px;
-
 `;
 
 export const Comments = styled.p`
@@ -156,7 +167,6 @@ export const AddBtn = styled.button`
   justify-content: center;
   align-items: center;
   gap: 8px;
-  
 
   border-radius: 40px;
   background: #54adff;
@@ -192,7 +202,7 @@ export const AddBtn = styled.button`
   }
 `;
 
-export const ContactBtn = styled.button`
+export const ContactLink = styled.a`
   display: flex;
   width: 129px;
   height: 40px;
@@ -205,7 +215,6 @@ export const ContactBtn = styled.button`
   border-radius: 40px;
   border: 2px solid #54adff;
   color: #54adff;
-  // color: #FEF9F9;
 
   font-size: 16px;
   font-style: normal;
@@ -244,11 +253,16 @@ export const AddressLink = styled.a`
   font-weight: 500;
   line-height: normal;
   text-decoration-line: underline;
+
+  :hover,
+  :focus {
+    color: rgb(84, 173, 255);
+  }
 `;
 
 export const ModelItemInfo = styled.li`
   display: flex;
-  gap:70px;
+  gap: 70px;
   color: #000;
 
   font-size: 16px;

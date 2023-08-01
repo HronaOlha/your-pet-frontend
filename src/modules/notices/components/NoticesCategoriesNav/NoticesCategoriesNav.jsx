@@ -1,5 +1,5 @@
-import { useLocation, useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import AddPetButton from "../AddPetButton";
 import NoticesFilters from "../NoticesFilters";
 import {
@@ -7,95 +7,105 @@ import {
   FilterAndAddPetBtnWrap,
   NoticesNavMainContainer,
   NoticesNavWrap,
+  FilterCategoryBtn,
+  FilterCategoryWrap,
+  FilterCategoryText,
 } from "./NoticesCategoriesNav.styled";
 import useSearch from "../NoticesSearch/hook/useSearch";
-import { useDispatch } from "react-redux";
-// import { fetchNotices } from "redux/notices/notices-operations";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchNotices } from "../../../../redux/notices/notices-operations";
+import useFilter from "./hooks/useFilter";
+import useNavButtons from "./hooks/useNavButtons";
+import icons from "../../../../assets/icons.svg";
+import {
+  isLogin,
+  noticesList,
+} from "../../../../redux/notices/notices-selectors";
 
-const initialCategoryBtnUrl = [
-  { to: "sell", label: "sell" },
-  { to: "lost-found", label: "lost-found" },
-  { to: "for-free", label: "in good hands" },
-];
-
-const useNavButtons = () => {
-  const [login, setLogin] = useState(true);
-  const [categoryBtnsUrl, setCategoryBtnsUrl] = useState(initialCategoryBtnUrl);
-  const [activeButton, setActiveButton] = useState(() => {
-    const fullURL = window.location.href;
-
-    if (fullURL.includes("/notices/")) {
-      const hasLostFound = fullURL.includes("lost-found")
-        ? "lost-found"
-        : false;
-      const hasSell = fullURL.includes("sell") ? "sell" : false;
-      const hasForFree = fullURL.includes("for-free") ? "for-free" : false;
-      const hasFavorite = fullURL.includes("favorite") ? "favorite" : false;
-      const hasOwn = fullURL.includes("own") ? "own" : false;
-
-      return hasLostFound || hasSell || hasForFree || hasFavorite || hasOwn;
-    } else {
-      return "sell";
-    }
-  });
-
-  if (login && categoryBtnsUrl.length === 3) {
-    setCategoryBtnsUrl((prevCategoryBtnUrl) => [
-      ...prevCategoryBtnUrl,
-      { to: "favorite", label: "favorite ads" },
-      { to: "own", label: "my ads" },
-    ]);
-  }
-
-  return {
-    login,
-    setLogin,
-    categoryBtnsUrl,
-    activeButton,
-    setActiveButton,
-  };
-};
-
-function NoticesCategoriesNav() {
-  const { login, setLogin, categoryBtnsUrl, activeButton, setActiveButton } =
-    useNavButtons();
+function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
+  const { categoryBtnsUrl, activeButton, setActiveButton } = useNavButtons();
   const { search, resetInput } = useSearch();
+  const { filterState, setFilterState, resetFilter } = useFilter();
+  const ref = useRef();
+  const isLoggedIn = useSelector(isLogin);
+  const list = useSelector(noticesList);
 
   const dispatch = useDispatch();
+  const { isBeforeOneYear, isUpOneYear, isUpTwoYear, isFemale, isMale } =
+    filterState;
+  const {
+    setIsBeforeOneYear,
+    setIsUpOneYear,
+    setIsUpTwoYear,
+    setIsFemale,
+    setIsMale,
+  } = setFilterState;
 
   const url = window.location.href;
 
   useEffect(() => {
-    const baseUrl = "https://my-pet-app-8sz1.onrender.com/notices";
+    const baseUrl = "/notices";
 
-    if (url.includes("date") || url.includes("sex")) {
-      console.log("renderNav");
-      const newArr = url.split("?");
-      newArr.shift();
-      const query = newArr.map((query) => query.replace(/%2C/g, ","));
-      const filterQuery = query.join("&");
+    let fetchUrl;
+    const filterQuery = search
+      ? url.split("?")[1]?.replace(/%2C/g, ",").replace("search", "filter")
+      : url.split("?")[1]?.replace(/%2C/g, ",");
 
-      const fetchUrl = `?page=1&limit=9&category=${activeButton}&${filterQuery}`;
+    const commonParams = filterQuery ? `&${filterQuery}` : "";
 
-      console.log("fetchUrl", fetchUrl);
+    if (
+      url.includes("/notices/sell") ||
+      url.includes("/notices/lost-found") ||
+      url.includes("/notices/for-free")
+    ) {
+      fetchUrl = `${baseUrl}?category=${activeButton}&page=${currentPage}&limit=9${commonParams}`;
+    } else if (url.includes("/notices/favorite")) {
+      fetchUrl = `${baseUrl}/favorites?page=${currentPage}&limit=9${commonParams}`;
+      ref.current = fetchUrl;
 
-      dispatch(fetchNotices({ url: fetchUrl }));
-    } else {
-      const fetchUrl = search
-        ? `?page=1&limit=9&category=${activeButton}&filter=${search}`
-        : `?page=1&limit=9&category=${activeButton}`;
+      dispatch(fetchNotices({ url: fetchUrl, privateRoute: true }));
+      return;
+    } else if (url.includes("/notices/own")) {
+      fetchUrl = `${baseUrl}/owner?page=${currentPage}&limit=9${commonParams}`;
+      ref.current = fetchUrl;
+      dispatch(fetchNotices({ url: fetchUrl, privateRoute: true }));
+      return;
+    }
+
+    ref.current = fetchUrl;
+
+    if (fetchUrl) {
       dispatch(fetchNotices({ url: fetchUrl }));
     }
-  }, [activeButton, dispatch, search, url]);
+  }, [activeButton, currentPage, dispatch, search, url]);
 
-  const resetSearchQuery = (btn) => {
+  useEffect(() => {
+    if (list.length === 8 && isLoggedIn) {
+      dispatch(fetchNotices({ url: ref.current, privateRoute: true }));
+    }
+  }, [dispatch, isLoggedIn, list.length]);
+
+  const resetAllSearchQuery = (btn) => {
+    resetFilter();
     resetInput();
     setActiveButton(btn);
+    setCurrentPage(1);
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div
+      style={{
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        gap:
+          isBeforeOneYear || isUpOneYear || isUpTwoYear || isFemale || isMale
+            ? 8
+            : 0,
+        marginBottom: 24,
+      }}
+    >
       <NoticesNavMainContainer>
         <NoticesNavWrap>
           {categoryBtnsUrl.map((btn) => (
@@ -103,19 +113,69 @@ function NoticesCategoriesNav() {
               key={btn.to}
               to={btn.to}
               active={activeButton}
-              onClick={() => resetSearchQuery(btn.to)}
+              onClick={() => resetAllSearchQuery(btn.to)}
             >
               {btn.label}
             </LinkButton>
           ))}
         </NoticesNavWrap>
         <FilterAndAddPetBtnWrap>
-          <NoticesFilters />
+          <NoticesFilters
+            filterState={filterState}
+            setFilterState={setFilterState}
+          />
           <AddPetButton />
         </FilterAndAddPetBtnWrap>
       </NoticesNavMainContainer>
+      <FilterCategoryWrap>
+        {isBeforeOneYear && (
+          <FilterCategoryBtn onClick={() => setIsBeforeOneYear(false)}>
+            <FilterCategoryText>3-12m</FilterCategoryText>
+            <svg width="16" height="16">
+              <use href={icons + "#cross-small"} stroke="#54ADFF" />
+            </svg>
+          </FilterCategoryBtn>
+        )}
+        {isUpOneYear && (
+          <FilterCategoryBtn onClick={() => setIsUpOneYear(false)}>
+            <FilterCategoryText>1 year</FilterCategoryText>
+            <svg width="16" height="16">
+              <use href={icons + "#cross-small"} stroke="#54ADFF" />
+            </svg>
+          </FilterCategoryBtn>
+        )}
+        {isUpTwoYear && (
+          <FilterCategoryBtn onClick={() => setIsUpTwoYear(false)}>
+            <FilterCategoryText>2 year</FilterCategoryText>
+            <svg width="16" height="16">
+              <use href={icons + "#cross-small"} stroke="#54ADFF" />
+            </svg>
+          </FilterCategoryBtn>
+        )}
+        {isFemale && (
+          <FilterCategoryBtn onClick={() => setIsFemale(false)}>
+            <FilterCategoryText>female</FilterCategoryText>
+            <svg width="16" height="16">
+              <use href={icons + "#cross-small"} stroke="#54ADFF" />
+            </svg>
+          </FilterCategoryBtn>
+        )}
+        {isMale && (
+          <FilterCategoryBtn onClick={() => setIsMale(false)}>
+            <FilterCategoryText>male</FilterCategoryText>
+            <svg width="16" height="16">
+              <use href={icons + "#cross-small"} stroke="#54ADFF" />
+            </svg>
+          </FilterCategoryBtn>
+        )}
+      </FilterCategoryWrap>
     </div>
   );
 }
 
 export default NoticesCategoriesNav;
+
+NoticesCategoriesNav.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+};

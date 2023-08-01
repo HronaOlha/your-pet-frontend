@@ -15,6 +15,7 @@ import { friendsReducer } from "./ourFriends/ourFriends-slice";
 import { noticesReducer } from "./notices/notices-slice";
 
 import { interceptor } from "../shared/utils/axiosConfig";
+import handleMiddlewateForNoticePage from "./utils/handleMiddlewateForNoticePage";
 
 export const store = configureStore({
   reducer: {
@@ -29,7 +30,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(handleMiddlewateForNoticePage),
 });
 
 interceptor(store);

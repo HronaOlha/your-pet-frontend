@@ -6,6 +6,7 @@ export const ModalWrap = styled.div`
   padding: 60px 12px;
   margin: 0 20px;
   border-radius: 20px;
+  z-index: 30;
 
   display: flex;
   flex-direction: column;

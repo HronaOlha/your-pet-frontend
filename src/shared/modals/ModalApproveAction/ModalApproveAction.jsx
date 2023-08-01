@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import Modal from "../modalPort/modal";
+import Modal from "../modalPort/Modal";
 import {
   ButtonlWrap,
   CancelButton,
@@ -12,7 +12,7 @@ import {
 import { ReactComponent as CloseSvg } from "../../../assets/icons/cross-small.svg";
 import { ReactComponent as DeletteSvg } from "../../../assets/icons/shape.svg";
 
-const ModalApproveAction = ({ onSucces, toggleModal }) => (
+const ModalApproveAction = ({ onSuccess, toggleModal }) => (
   <Modal toggleModal={toggleModal}>
     <ModalWrap>
       <Title>Delete adverstiment?</Title>
@@ -25,7 +25,7 @@ const ModalApproveAction = ({ onSucces, toggleModal }) => (
         <CancelButton type="button" onClick={toggleModal}>
           Cancel
         </CancelButton>
-        <SuccesButton type="button" onClick={onSucces}>
+        <SuccesButton type="button" onClick={onSuccess}>
           Yes
           <DeletteSvg />
         </SuccesButton>
@@ -41,6 +41,6 @@ const ModalApproveAction = ({ onSucces, toggleModal }) => (
 export default ModalApproveAction;
 
 ModalApproveAction.propTypes = {
-  onSucces: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
   toggleModal: PropTypes.func.isRequired,
 };

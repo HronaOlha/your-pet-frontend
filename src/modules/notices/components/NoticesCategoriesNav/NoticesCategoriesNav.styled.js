@@ -4,10 +4,11 @@ import styled from "styled-components";
 export const NoticesNavMainContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  position: relative;
+  gap: 24px;
+  /* position: relative; */
+  margin: 0 auto;
 
   @media (max-width: 767px) {
-    /* position: relative; */
     width: 280px;
   }
 
@@ -26,7 +27,7 @@ export const NoticesNavWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   width: 100%;
 
   @media (max-width: 767px) {
@@ -71,4 +72,50 @@ export const LinkButton = styled(Link)`
     color: #fef9f9;
     background: #54adff;
   }
+`;
+
+export const FilterCategoryWrap = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+
+  @media (max-width: 767px) {
+    width: 280px;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 auto;
+  }
+`;
+
+export const FilterCategoryBtn = styled.button`
+  display: inline-flex;
+  height: 32px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 20px;
+  border: transparent;
+  background: #fff;
+  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+  color: #54adff;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 120%;
+
+  &:hover svg use,
+  &:focus svg use {
+    stroke: rgb(255, 193, 7);
+  }
+`;
+
+export const FilterCategoryText = styled.p`
+  color: #54adff;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 `;

@@ -39,3 +39,15 @@ export const AddPetBtn = styled.button`
     z-index: 1;
   }
 `;
+
+// export const Text = styled.span`
+//   font-size: 12px;
+//   font-weight: 600;
+// `;
+
+export const IconPlus = styled.svg`
+  @media (min-width: 768px) {
+    width: 16px;
+    height: 16px;
+  }
+`;

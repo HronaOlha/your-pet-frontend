@@ -16,7 +16,6 @@ import {
 } from "./PetsData.styled";
 
 const PetsData = () => {
-  const location = useLocation();
   const { pets } = useSelector(authSelectors.selectUser);
   const isLoading = useSelector(selectPetsIsLoading);
 
@@ -24,7 +23,7 @@ const PetsData = () => {
     <UserPetsBody>
       <UserPetsTitleWrap>
         <UserPetsTitle>My pets:</UserPetsTitle>
-        <NavLink to={`add-pet`} state={location.pathname}>
+        <NavLink to={`/add-pet`}>
           <UserPetsNavBtn>Add Pet +</UserPetsNavBtn>
         </NavLink>
       </UserPetsTitleWrap>
@@ -45,7 +44,7 @@ const PetsData = () => {
             data-testid="loader"
           />
         </div>
-      ) : pets && pets.length === 0 ? (
+      ) : !pets && pets.length === 0 ? (
         <NoUserPets>
           You have not added a pet yet, you have the option to add your furry
           friend!

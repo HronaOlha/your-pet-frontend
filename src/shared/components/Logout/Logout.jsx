@@ -1,10 +1,6 @@
 import { useState } from "react";
 import spriteSvg from "../../../assets/icons.svg";
-import {
-  StyledLogout,
-  StyledLogoutText,
-  LogoutIcon,
-} from "./Logout.styled";
+import { StyledLogout, StyledLogoutText, LogoutIcon } from "./Logout.styled";
 import ModalLogOut from "../../modals/ModalLogout/ModalLogOut";
 
 const Logout = () => {
@@ -12,7 +8,7 @@ const Logout = () => {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-  }
+  };
 
   return (
     <>
