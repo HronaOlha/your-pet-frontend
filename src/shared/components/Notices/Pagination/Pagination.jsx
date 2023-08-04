@@ -8,7 +8,7 @@ import {
 } from "./Pagination.styled";
 
 const Pagination = ({ totalItems, currentPage, setCurrentPage }) => {
-  const count = Math.ceil(totalItems / 9);
+  const count = Math.ceil(totalItems / 12);
 
   const handleGoToPage = (page) => {
     setCurrentPage(Math.min(Math.max(page, 1), count));

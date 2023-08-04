@@ -96,8 +96,10 @@ export const Text = styled.p`
 `;
 
 export const BtnCongrats = styled.button`
-  width: 100%;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
   background: rgba(84, 173, 255, 1);
   border-radius: 40px;
@@ -130,9 +132,8 @@ export const BtnCongrats = styled.button`
 
 export const WrapperIconPawnprint = styled.div`
   position: absolute;
-  top: 60%;
-  right: 45%;
+  left: 52%;
   z-index: 10;
   margin-top: 7px;
-  margin-right: 10px;
+  margin-left: 35px;
 `;

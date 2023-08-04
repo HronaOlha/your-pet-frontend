@@ -59,15 +59,15 @@ function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
       url.includes("/notices/lost-found") ||
       url.includes("/notices/for-free")
     ) {
-      fetchUrl = `${baseUrl}?category=${activeButton}&page=${currentPage}&limit=9${commonParams}`;
+      fetchUrl = `${baseUrl}?category=${activeButton}&page=${currentPage}&limit=12${commonParams}`;
     } else if (url.includes("/notices/favorite")) {
-      fetchUrl = `${baseUrl}/favorites?page=${currentPage}&limit=9${commonParams}`;
+      fetchUrl = `${baseUrl}/favorites?page=${currentPage}&limit=12${commonParams}`;
       ref.current = fetchUrl;
 
       dispatch(fetchNotices({ url: fetchUrl, privateRoute: true }));
       return;
     } else if (url.includes("/notices/own")) {
-      fetchUrl = `${baseUrl}/owner?page=${currentPage}&limit=9${commonParams}`;
+      fetchUrl = `${baseUrl}/owner?page=${currentPage}&limit=12${commonParams}`;
       ref.current = fetchUrl;
       dispatch(fetchNotices({ url: fetchUrl, privateRoute: true }));
       return;
