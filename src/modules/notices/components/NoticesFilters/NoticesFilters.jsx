@@ -31,6 +31,7 @@ function NoticesFilters({
     handleFilterClick,
     handleAgeClick,
     handleGenderClick,
+    popupRef,
   } = useOpenFilter();
   const [, setSearchParams] = useSearchParams();
   const screenWidth = useScreenWidth();
@@ -114,7 +115,11 @@ function NoticesFilters({
   ]);
 
   return (
-    <FilterBtn isExpandedFilter={isExpandedFilter} onClick={handleFilterClick}>
+    <FilterBtn
+      ref={popupRef}
+      isExpandedFilter={isExpandedFilter}
+      onClick={handleFilterClick}
+    >
       {!isExpandedFilter ? (
         <>
           {screenWidth >= 768 && <p>Filter</p>}

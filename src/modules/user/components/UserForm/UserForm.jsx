@@ -113,7 +113,7 @@ const UserForm = ({ isUserUpdate, setIsUserUpdate }) => {
                   name="city"
                   id="city"
                   autoComplete="off"
-                  placeholder={"Kiev"}
+                  placeholder={"Kyiv"}
                   disabled={isUserUpdate}
                 />
               </UserFormItem>

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function useOpenFilter() {
   const [isExpandedFilter, setExpandedFilter] = useState(false);
   const [isExpandedAge, setExpandedAge] = useState(false);
   const [isExpandedGender, setExpandedGender] = useState(false);
+  const popupRef = useRef(null);
 
   const handleFilterClick = (e) => {
     const { outerHTML, nodeName, textContent } = e.target;
@@ -35,6 +36,29 @@ function useOpenFilter() {
     }
   };
 
+  useEffect(() => {
+    const handlePopUpClick = (e) => {
+      if (
+        isExpandedFilter &&
+        popupRef.current &&
+        !popupRef.current.contains(e.target)
+      ) {
+        setExpandedFilter((prev) => !prev);
+        return;
+      }
+    };
+
+    if (isExpandedFilter) {
+      document.addEventListener("mousedown", handlePopUpClick);
+    } else {
+      document.removeEventListener("mousedown", handlePopUpClick);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handlePopUpClick);
+    };
+  }, [isExpandedFilter]);
+
   return {
     isExpandedFilter,
     isExpandedAge,
@@ -42,6 +66,7 @@ function useOpenFilter() {
     handleFilterClick,
     handleAgeClick,
     handleGenderClick,
+    popupRef,
   };
 }
 

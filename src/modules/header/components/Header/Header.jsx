@@ -1,5 +1,5 @@
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import spriteSvg from "../../../../assets/icons.svg";
@@ -18,6 +18,15 @@ import {
 const Header = () => {
   const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false);
   const nodeRef = useRef(null);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMobileMenuOpen]);
 
   const onCloseMobileMenu = () => {
     if(isMobileMenuOpen) setisMobileMenuOpen(false);
