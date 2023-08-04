@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { refreshUser } from "./redux/auth/auth-operations";
-import authSelectors from "./redux/auth/auth-selectors";
+
 import NotFound from "./pages/NotFoundPage/NotFound";
 import NoticesCategoriesList from "./modules/notices/components/NoticesCategoriesList/NoticesCategoriesList";
 import { PrivateRoute } from "./protectedRouters/PrivateRoute";
@@ -29,11 +29,11 @@ const OurFriends = React.lazy(() =>
 
 const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(authSelectors.selectRefreshing);
 
   React.useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
   const routes = [
     {
       path: "/",

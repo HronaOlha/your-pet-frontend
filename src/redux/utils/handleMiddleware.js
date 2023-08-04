@@ -65,7 +65,13 @@ const handleMiddleware = (store) => (next) => (action) => {
     action.type === "auth/addUserPet/rejected" ||
     action.type === "auth/deleteUserPet/rejected"
   ) {
-    notifyError(action.payload.response?.data?.message);
+    if (action.payload.response.status === 500)
+      notifyError("Oops!! Something went wrong. Try again!");
+    else notifyError(action.payload.response?.data?.message);
+  }
+
+  if (action.type === "auth/googleAuth/rejected") {
+    notifyError("Oops!! Something went wrong. Try again!");
   }
 
   return next(action);

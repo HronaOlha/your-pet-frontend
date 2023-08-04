@@ -12,12 +12,19 @@ import Loader from "/src/shared/loader/Loader";
 const UserPage = () => {
   const { isNewUser } = useSelector(authSelectors.selectUser);
   const isLoading = useSelector(authSelectors.selectIsLoader);
+  const isRefreshing = useSelector(authSelectors.selectRefreshing);
 
   return (
     <UserPageBody>
       {isNewUser && <ModalCongrats />}
-      <UserData />
-      <PetsData />
+
+      {!isRefreshing && (
+        <>
+          <UserData />
+          <PetsData />
+        </>
+      )}
+
       <Loader loading={isLoading} />
     </UserPageBody>
   );

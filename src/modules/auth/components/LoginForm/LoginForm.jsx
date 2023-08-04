@@ -28,6 +28,7 @@ import {
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+
   const [password, setPassword] = useState(false);
 
   const initialValues = {
@@ -162,6 +163,11 @@ const LoginForm = () => {
           <Btn type="submit">Login</Btn>
           <Text>
             Don&apos;t have an account? <a href="/register">Register</a>
+          </Text>
+          <Text>
+            <a href="https://my-pet-app-8sz1.onrender.com/users/google">
+              Continue with Google
+            </a>
           </Text>
         </FormContainer>
       )}

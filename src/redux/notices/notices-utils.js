@@ -18,6 +18,7 @@ export const handleRejectedFetchNotices = (state) => {
 };
 
 export const handlePendingFetchNoticesFavorite = (state) => {
+  state.isLoading = true;
   state.isLoadingFavorite = true;
   state.error = null;
 };
@@ -26,11 +27,13 @@ export const handleFulfilledFetchNoticesAddFavorite = (state, action) => {
   const { favorites } = action.payload;
 
   state.favorite = [...favorites];
+  state.isLoading = false;
   state.isLoadingFavorite = false;
   state.error = null;
 };
 
 export const handleRejectedFetchNoticesFavorite = (state) => {
+  state.isLoading = false;
   state.isLoadingFavorite = false;
   state.error = true;
 };
@@ -48,6 +51,7 @@ export const handleFulfilledFetchNoticesDeleteFavorite = (state, action) => {
     state.total = total;
   }
 
+  state.isLoading = false;
   state.favorite = [...favorites];
   state.isLoadingFavorite = false;
   state.error = null;
@@ -65,6 +69,7 @@ export const handleFulfilledDeleteCardById = (state, action) => {
 
   state.items = newArr;
   state.total = state.total -= 1;
+  state.isLoading = false;
 };
 
 export const handleTakeFavoritesList = (state, action) => {

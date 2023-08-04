@@ -75,6 +75,20 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
+export const googleAuth = createAsyncThunk(
+  "auth/googleAuth",
+  async (accessToken, thunkAPI) => {
+    try {
+      token.set(accessToken);
+      const { data } = await axiosPrivate.get("/users/current");
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
@@ -90,6 +104,7 @@ export const refreshUser = createAsyncThunk(
     try {
       // If there is a token, add it to the HTTP header and perform the request
       token.set(persistedToken);
+
       const { data } = await axiosPrivate.get("/users/current");
 
       return data;

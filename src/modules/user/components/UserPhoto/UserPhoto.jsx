@@ -45,7 +45,7 @@ const AddPhoto = ({ isUserUpdate, setUserPhoto }) => {
   }, [selectedFile]);
 
   const onSubmit = () => {
-    setUserPhoto(selectedFile);
+    setUserPhoto(selectedFile );
     setisSelected(true);
   };
 

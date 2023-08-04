@@ -8,6 +8,7 @@ import {
   addUserPet,
   deleteUserPet,
   refreshToken,
+  googleAuth,
 } from "./auth-operations";
 
 export const extraActions = [
@@ -19,6 +20,7 @@ export const extraActions = [
   addUserPet,
   deleteUserPet,
   refreshToken,
+  googleAuth,
 ];
 
 export const getActions = (type) => extraActions.map((action) => action[type]);
@@ -86,6 +88,16 @@ export const userUpdateFulfilled = (
 };
 
 export const userRefreshFulfilled = (state, { payload: { user } }) => {
+  let birthday = "";
+  if (user.birthday) {
+    birthday = formatDate(user.birthday);
+  }
+  state.isRefreshing = false;
+  state.user = { ...state.user, ...user, birthday };
+  state.isLoggedIn = true;
+};
+
+export const googleAuthFullfilled = (state, { payload: { user } }) => {
   let birthday = "";
   if (user.birthday) {
     birthday = formatDate(user.birthday);
