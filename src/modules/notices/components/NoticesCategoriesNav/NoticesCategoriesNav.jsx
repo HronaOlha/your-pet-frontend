@@ -25,7 +25,7 @@ import {
 
 function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
   const { categoryBtnsUrl, activeButton, setActiveButton } = useNavButtons();
-  const { search, resetInput } = useSearch();
+  const { resetInput } = useSearch();
   const { filterState, setFilterState, resetFilter } = useFilter();
   const ref = useRef();
   const isLoggedIn = useSelector(isLogin);
@@ -48,9 +48,11 @@ function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
     const baseUrl = "/notices";
 
     let fetchUrl;
-    const filterQuery = search
-      ? url.split("?")[1]?.replace(/%2C/g, ",").replace("search", "filter")
-      : url.split("?")[1]?.replace(/%2C/g, ",");
+
+    const filterQuery = url
+      .split("?")[1]
+      ?.replace(/%2C/g, ",")
+      .replace("search", "filter");
 
     const commonParams = filterQuery ? `&${filterQuery}` : "";
 
@@ -78,7 +80,7 @@ function NoticesCategoriesNav({ currentPage, setCurrentPage }) {
     if (fetchUrl) {
       dispatch(fetchNotices({ url: fetchUrl }));
     }
-  }, [activeButton, currentPage, dispatch, search, url]);
+  }, [activeButton, currentPage, dispatch, url]);
 
   useEffect(() => {
     if (list.length === 8 && isLoggedIn) {
