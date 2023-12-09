@@ -1,58 +1,44 @@
-# Git Guide for Team
+# Your Pet Project
 
-This guide provides instructions on how to use Git effectively for your team's backend development work.
+"Your Pet" is an innovative project designed to provide a convenient and effective platform for connecting those looking for a pet with those willing to provide them with a warm and loving home. Website not only facilitates buying and selling animals but also emphasizes the charitable and free adoption!
 
-## Commit Naming Convention
+## Key Features
+1. **Search and Adoption**: Simplified and detailed search for pets using a variety of filters, ensuring each user can find exactly what they are looking for.
 
-1. **Commit messages should be concise and descriptive**:
-   - Start with a verb in the present tense (e.g., "add," "update," "fix", "remove").
-   - Use the imperative mood for consistency (e.g., "add feature" instead of "added feature").
-   - Use clear and meaningful names that explain the purpose of the commit.
+2. **Free Adoption and Giving Away Pets**: A unique opportunity to give away a pet to a good home or find a new four-legged friend completely free of charge.
 
-   Example: `add user authentication feature`
+3. **Lost and Found Announcements**: A community-driven feature helping resolve issues related to lost and found pets. Users can post announcements and receive support in their search.
 
-2. **Commit messages should be self-contained**:
-   - Each commit should represent a logical change or fix.
-   - Avoid bundling unrelated changes in a single commit.
+4. **Personal Dashboard**: Users can create a personal dashboard where they can post their announcements, track statuses, and perform other actions related to their adopted companions.
 
-3. **Use commit message prefixes**:
-   - Use prefixes to indicate the type of commit:
-     - `feature:` for new features or functionality
-     - `fix:` for bug fixes
-     - `refactor:` for code refactoring or restructuring
-     - `docs:` for documentation updates
-     - `test:` for adding or modifying tests
-     - `chore:` for general maintenance or miscellaneous tasks
+5. **News and Useful Information**: A news section where users can find helpful tips, information on pet care, and announcements about community events and promotions.
 
-   Example: `feature: add user authentication feature`
+## Technologies Used
+### Frontend
+- **React**: A popular library for building user interfaces.
+- **Redux Toolkit**: Provides a convenient and efficient state management solution.
+- **Styled Components**: Used for styling and organizing components.
+- **React Router**: Enables navigation between different pages of the site.
+- **Redux Persist**: Persists the Redux state in local storage for a better user experience.
+- **Formik**: Facilitates the creation and validation of forms.
+- **React Toaster**: Displays notifications to users.
+- **Axios**: Library for interacting with the backend API.
+- **Yup**: Handles data validation on the frontend.
+- **Prop Types**: Ensures proper validation of component props.
 
-4. **Be consistent**:
-   - Follow the same naming convention throughout the project.
-   - If working on a specific task or issue, include the task or issue number in the commit message for easier tracking.
+## Backend
+- **Node.js**: Backend server implemented using Node.js.
+- **Express**: Framework for developing web applications on Node.js.
+- **MongoDB**: Database for storing and managing data.
+- **Mongoose**: Object Data Modeling (ODM) for Node.js and MongoDB, simplifying database interactions.
+- **Multer**: Handles file upload and processing on the server.
+- **JWT**: Used for user authentication and authorization.
+- **Passport**: Manages user authentication.
+- **Swagger**: API documentation for easy interaction with the backend.
 
-   Example: `fix: Issue #123 - Fix user authentication bug`
+## Deployment
+- **Vite builder**: Fast and efficient tool for project development and building.
+- **Vercel**: Service for deploying and hosting the frontend.
+- **Render**: Platform for deploying and managing the backend.
 
-## Branch Naming Convention
-
-1. **Branch names should be meaningful and descriptive**:
-   - Use lowercase letters and hyphens to separate words.
-   - Include the related task or issue number, if applicable.
-
-   Example: `feature/user-authentication`, `fix/issue-123`
-
-2. **Use short-lived feature branches**:
-   - Create a new branch for each new feature or bug fix.
-   - Merge the branch back into the main branch (e.g., `main` or `master`) after completing the work.
-
-3. **Prefixes for branch names**:
-   - Use prefixes to indicate the purpose of the branch:
-     - `feature/` for new features or functionality
-     - `fix/` for bug fixes
-     - `hotfix/` for urgent fixes on the main branch
-     - `release/` for preparing a new release
-
-   Example: `feature/user-authentication`, `fix/issue-123`
-
-4. **Be consistent**:
-   - Follow the same naming convention throughout the project.
 
